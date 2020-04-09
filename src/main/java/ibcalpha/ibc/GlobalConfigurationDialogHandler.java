@@ -40,6 +40,7 @@ class GlobalConfigurationDialogHandler implements WindowHandler {
         switch (eventId) {
             case WindowEvent.WINDOW_OPENED:
                 ConfigDialogManager.configDialogManager().setConfigDialog((JDialog) window);
+                ConfigTimerAutoDelayTask.setConfigDialog((JDialog) window);
                 break;
             case WindowEvent.WINDOW_CLOSED:
                 ConfigDialogManager.configDialogManager().clearConfigDialog();

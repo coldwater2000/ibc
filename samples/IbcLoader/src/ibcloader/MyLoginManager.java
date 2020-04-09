@@ -41,12 +41,12 @@ public class MyLoginManager extends ibcalpha.ibc.LoginManager {
 
     @Override
     public String IBAPIPassword() {
-        return "demouser";
+        return "dksn32dksn32";
     }
 
     @Override
     public String IBAPIUserName() {
-        return "edemo";
+        return "cold00003";
     }
 
     @Override

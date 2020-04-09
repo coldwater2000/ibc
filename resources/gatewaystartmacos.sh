@@ -18,11 +18,11 @@
 #=============================================================================+
 
 
-TWS_MAJOR_VRSN=972
-IBC_INI=~/ibc/config.ini
+TWS_MAJOR_VRSN=978
+IBC_INI=config.ini
 TRADING_MODE=
-IBC_PATH=/opt/ibc
-TWS_PATH=~/Applications
+IBC_PATH=/Users/coldwater2000/IdeaProjects/IBC/resources
+TWS_PATH=/Users/coldwater2000/Applications
 TWS_SETTINGS_PATH=
 LOG_PATH=~/ibc/logs
 TWSUSERID=

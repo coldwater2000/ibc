@@ -29,6 +29,10 @@ public class MySettings extends ibcalpha.ibc.Settings {
     public boolean getBoolean(String key, boolean defaultValue) {
         if ("AcceptNonBrokerageAccountWarning".compareTo(key) == 0) {
             return true;
+        } else if ("ReadOnlyApi".equalsIgnoreCase(key)) {
+            return false;
+        } else if ("DownloadOrder".equalsIgnoreCase(key)){
+            return false;
         } else {
             return defaultValue;
         }
@@ -48,7 +52,13 @@ public class MySettings extends ibcalpha.ibc.Settings {
     public int getInt(String key, int defaultValue) {
         if ("CommandServerPort".compareTo(key) == 0) {
             return 7462;
-        } else {
+        } else if ("portNumber".equalsIgnoreCase(key)){
+            return 4002;
+        } else if ("DelayLogoutMinute".equalsIgnoreCase(key)){
+            return 5;
+        } else if ("DelayLogoutMinuteIntervalHour".equalsIgnoreCase(key)){
+            return 10;
+        }else {
             return defaultValue;
         }
     }
@@ -56,12 +66,23 @@ public class MySettings extends ibcalpha.ibc.Settings {
     @Override
     public String getString(String key, String defaultValue) {
         if ("IbDir".compareTo(key) == 0) {
-            return "C:\\IbcLoader\\JtsSettings";
+            return "~/Jts";
         } else if ("ExistingSessionDetectedAction".compareTo(key) == 0) {
             return "primary";
-        } else {
+        } else if ("ReadOnlyApi".equalsIgnoreCase(key)) {
+            return "false";
+        } else if ("DownloadOrder".equalsIgnoreCase(key)){
+            return "false";
+        } else if ("DelayLogoutMinute".equalsIgnoreCase(key)){
+            return "5";
+        }
+        else if ("DelayLogoutMinuteIntervalHour".equalsIgnoreCase(key)){
+            return "10";
+        }
+        else {
             return defaultValue;
         }
     }
-    
+
+
 }

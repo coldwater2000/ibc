@@ -18,6 +18,7 @@
 
 package ibcalpha.ibc;
 
+import javax.swing.plaf.basic.BasicTableHeaderUI;
 import java.awt.AWTEvent;
 import java.awt.Toolkit;
 import java.io.File;
@@ -33,7 +34,11 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author stevek
@@ -282,6 +287,8 @@ public class IbcTws {
         
         startSavingTwsSettingsAutomatically();
 
+        startDelayLogoutTimerAutomatically();
+
         startTwsOrGateway(isGateway);
 }
 
@@ -459,6 +466,14 @@ public class IbcTws {
         if (!Settings.settings().getString("ReadOnlyApi", "").equals("")) {
             (new ConfigurationTask(new ConfigureReadOnlyApiTask(Settings.settings().getBoolean("ReadOnlyApi",true)))).executeAsync();
         }
+        //DownLoad Order On Connected
+        if (!Settings.settings().getString("DownloadOrder","").equalsIgnoreCase("")){
+            new ConfigurationTask(new ConfigureDownloadOrderApiTask(Settings.settings().getBoolean("DownloadOrder",true))).executeAsync();
+        }
+        //DelayLogout
+        if (!Settings.settings().getString("DelayLogoutMinute","").equalsIgnoreCase("")){
+            new ConfigurationTask(new ConfigTimerTask(Settings.settings().getInt("DelayLogoutMinute",5))).executeAsync();
+        }
 
         Utils.sendConsoleOutputToTwsLog(!Settings.settings().getBoolean("LogToConsole", false));
     }
@@ -467,5 +482,15 @@ public class IbcTws {
         TwsSettingsSaver.getInstance().initialise();
     }
 
+    private static void startDelayLogoutTimerAutomatically(){
+        if (!
+                (Settings.settings().getString("DelayLogoutMinute","").equalsIgnoreCase("")
+                || Settings.settings().getString("DelayLogoutMinuteIntervalHour","").equalsIgnoreCase(""))) {
+            Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(() -> {
+                //TODO test use Seconds
+                new ConfigTimerAutoDelayTask(Settings.settings().getInt("DelayLogoutMinute", 5)).run();
+            }, 20, Settings.settings().getInt("DelayLogoutMinuteIntervalHour", 20), TimeUnit.SECONDS);
+        }
+    }
 }
 

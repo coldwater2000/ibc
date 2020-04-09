@@ -1,4 +1,4 @@
-@echo off
+ @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
 :: Note that this command file is a 'service file' intended to be called from 

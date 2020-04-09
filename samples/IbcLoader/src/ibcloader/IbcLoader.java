@@ -20,6 +20,8 @@ package ibcloader;
 
 import ibcalpha.ibc.*;
 
+import java.util.concurrent.*;
+
 public class IbcLoader {
 
     /**
@@ -29,6 +31,17 @@ public class IbcLoader {
         try {
             setupEnvironment(true);
             ibcalpha.ibc.IbcTws.load();
+//            new ConfigurationTask(new ConfigureDownloadOrderApiTask(false)).executeAsync();
+//            ConfigurationTask timeTask = new ConfigurationTask(new ConfigTimerTask());
+//            timeTask.executeAsync();
+            //每一分钟修正重启时间，当前时间向后挪5分钟
+//            new ScheduledThreadPoolExecutor(1).scheduleWithFixedDelay(()->{
+////                ConfigDialogManager.setDefault();
+////                ConfigDialogManager.configDialogManager().setSplashScreenClosed();
+////                ConfigDialogManager.configDialogManager().clearConfigDialog();
+//                new ConfigTimerAutoDelayTask(5).run();
+//            },30, 20,TimeUnit.SECONDS);
+
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);

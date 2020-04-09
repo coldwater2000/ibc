@@ -186,7 +186,7 @@ class Utils {
      * @throws IllegalStateException
      * the method has not been called on the SWing event dispatch thread
      */
-    static boolean selectConfigSection(final JDialog configDialog, final String[] path) throws IbcException, IllegalStateException {
+    public static boolean selectConfigSection(final JDialog configDialog, final String[] path) throws IbcException, IllegalStateException {
         if (!SwingUtilities.isEventDispatchThread()) throw new IllegalStateException("selectConfigSection must be run on the event dispatch thread");
         
         JTree configTree = SwingUtils.findTree(configDialog);
@@ -210,6 +210,18 @@ class Utils {
             if (!Utils.selectConfigSection(configDialog, new String[] {"API","Settings"}))
                 // older versions of TWS don't have the Settings node below the API node
                 Utils.selectConfigSection(configDialog, new String[] {"API"});
+    }
+
+    /**
+     * find LockAndExitDialog
+     * @param configDialog
+     * @throws IbcException
+     * @throws IllegalStateException
+     */
+    static void selectLockAndExitSettings(final JDialog configDialog) throws IbcException, IllegalStateException {
+        if (!Utils.selectConfigSection(configDialog,new String [] {"Lock and Exit"})){
+            throw new IbcException("Not find Lock and Exit Menu! ");
+        }
     }
 
     static void showTradesLogWindow() {
