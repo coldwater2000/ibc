@@ -31,7 +31,10 @@ public class ConfigTimerAutoDelayTask implements Runnable {
             Utils.logToConsole("---Starting Lock");
             lock.lock();
             try{
-                gotConfigDialog.await();
+                if (!gotConfigDialog.await(10,TimeUnit.SECONDS)){
+                    Utils.logToConsole("---Lock Timeout! ");
+                    return;
+                }
             }finally {
                 lock.unlock();
             }

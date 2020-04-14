@@ -489,7 +489,7 @@ public class IbcTws {
             Executors.newScheduledThreadPool(1).scheduleWithFixedDelay(() -> {
                 //TODO test use Seconds
                 new ConfigTimerAutoDelayTask(Settings.settings().getInt("DelayLogoutMinute", 5)).run();
-            }, 20, Settings.settings().getInt("DelayLogoutMinuteIntervalHour", 20), TimeUnit.SECONDS);
+            }, 1, Settings.settings().getInt("DelayLogoutMinuteIntervalHour", 20), TimeUnit.HOURS);
         }
     }
 }
