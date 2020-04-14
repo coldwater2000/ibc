@@ -1,3 +1,15 @@
+在IBC的基础上，根据使用中可能会遇到的问题进行了如下修改：
+* 增加了开关DownloadOrder，可设置在连接成功后是否下载Open状态订单，默认是false
+* 增加开关DelayLogoutMinute、DelayLogoutMinuteIntervalHour，用于设置自动Logout时间向前延时的时间与每次重设的时间间隔，用于解决每日自动logout的问题。ibc每日会根据auto logout设置自动登出，为了解决此问题，本版本设计了自动推延时间的机制，即在固定时间触发，把logout时间设置为当前时间n分钟之前的的时间，即可避免每日重启。但考虑系统稳定性，建议最好每周手动重启一次。
+
+**使用方法：
+
+在config.ini中设置以下几个参数：
+* DownloadOrder=false   默认为false，表示在连接成功时不下载Open状态的订单
+* DelayLogoutMinute=5   默认为5， 表示设置logout时间为当前时间之前5分钟的时间，如当前为12:00,则会设置为11:55。如果有这个设置，则会在首次IBC启动IBGateway时进行一次设置，如设置了DelayLogoutMinuteIntervalHour则会重复执行；
+* DelayLogoutMinuteIntervalHour=10  默认为10，表示每间隔10个小时进行一次DelayLogoutMinute设置，避免IBGateway重启。
+
+
 **Download the
 [latest official release here](https://github.com/IbcAlpha/IBC/releases/latest)**
 
